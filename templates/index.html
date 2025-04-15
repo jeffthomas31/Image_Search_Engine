@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Search Engine</title>
+    <style>
+        body { font-family: Arial; padding: 20px; }
+        form { margin-bottom: 20px; }
+        .image { display: inline-block; margin: 10px; text-align: center; }
+        img { width: 200px; height: auto; border-radius: 10px; box-shadow: 0 0 5px gray; }
+    </style>
+</head>
+<body>
+    <h1 align="center">Image Engine</h1>
+    <form method="post" align="center">
+        <input type="text" name="query" value="{{ query }}" placeholder="Search for images..." size="40" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+        <h2>Results:</h2>
+        {% for filename, caption, score in results %}
+            <div class="image">
+                <img src="/static/{{ filename }}" alt="{{ caption }}">
+                <p>{{ caption }}</p>
+                <small>Score: {{ "%.4f"|format(score) }}</small>
+            </div>
+        {% endfor %}
+    {% elif query %}
+        <p>No results found.</p>
+    {% endif %}
+</body>
+</html>
